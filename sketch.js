@@ -37,18 +37,18 @@ function setup() {
 
   // Setting up the slider for the thickness of the brush
   brushSizeSlider = createButton("Brush Size Slider");
-  brushSizeSlider.position(250, 10);
+  brushSizeSlider.position(10, 50);
   brushSizeSlider.class("textknapp");
   sizeSlider = createSlider(0.1, 200, 2, 0.1);
-  sizeSlider.position(360, 10);
+  sizeSlider.position(160, 50);
   sizeSlider.size(200);
   sizeSlider.class("slider");
 
   brushOpSlider = createButton("Brush Opacity Slider");
-  brushOpSlider.position(630, 10);
+  brushOpSlider.position(400, 50);
   brushOpSlider.class("textknapp");
   sizeOpSlider = createSlider(10, 255, 200, 0.1);
-  sizeOpSlider.position(760, 10);
+  sizeOpSlider.position(560, 50);
   sizeOpSlider.size(200);
   sizeOpSlider.class("slider");
 }
