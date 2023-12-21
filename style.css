@@ -1,0 +1,25 @@
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+canvas {
+  display: block;
+}
+
+.textknapp {
+  background: none;
+  /* background-color: white; */
+  border: none;
+  padding: 5px;
+}
+
+.tryckknapp {
+  /* background-color: bisque; */
+  /* border: none; */
+  padding: 5px;
+}
+
+.slider {
+  padding: 1px;
+}
