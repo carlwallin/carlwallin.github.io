@@ -6,7 +6,6 @@ let saveButton, clearButton, mouseButton, keyboardButton;
 let slider;
 
 let canvas;
-let isDrawing = true;
 
 function setup() {
   //createCanvas(710, 710);
@@ -41,7 +40,7 @@ function setup() {
   brushSizeSlider.position(10, 35);
   brushSizeSlider.class("textknapp");
   sizeSlider = createSlider(0.1, 200, 2, 0.1);
-  sizeSlider.position(140, 35);
+  sizeSlider.position(110, 35);
   sizeSlider.size(200);
   sizeSlider.class("slider");
 
@@ -49,18 +48,9 @@ function setup() {
   brushOpSlider.position(10, 55);
   brushOpSlider.class("textknapp");
   sizeOpSlider = createSlider(10, 255, 200, 0.1);
-  sizeOpSlider.position(140, 55);
+  sizeOpSlider.position(110, 55);
   sizeOpSlider.size(200);
   sizeOpSlider.class("slider");
-
-  // Ändra isDrawing när knapparna och skjutreglagen används
-  saveButton.mousePressed(() => { isDrawing = false; saveFile(); });
-  clearButton.mousePressed(() => { isDrawing = false; clearScreen(); });
-  fullscreenButton.mousePressed(() => { isDrawing = false; screenFull(); });
-  sizeSlider.mouseClicked(() => { isDrawing = false; });
-  sizeSlider.mouseReleased(() => { isDrawing = true; });
-  sizeOpSlider.mouseClicked(() => { isDrawing = false; });
-  sizeOpSlider.mouseReleased(() => { isDrawing = true; });
 }
 
 // Save File Function
@@ -88,7 +78,7 @@ function draw() {
     let pmx = pmouseX - width / 2;
     let pmy = pmouseY - height / 2;
 
-    if (isDrawing && mouseIsPressed) {
+    if (mouseIsPressed) {
       for (let i = 0; i < symmetry; i++) {
         rotate(angle);
         let sw = sizeSlider.value();
