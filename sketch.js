@@ -47,7 +47,7 @@ function setup() {
   brushOpSlider = createButton("Brush Opacity Slider");
   brushOpSlider.position(10, 55);
   brushOpSlider.class("textknapp");
-  sizeOpSlider = createSlider(10, 255, 200, 0.1);
+  sizeOpSlider = createSlider(0, 255, 200, 0.1);
   sizeOpSlider.position(110, 55);
   sizeOpSlider.size(200);
   sizeOpSlider.class("slider");
