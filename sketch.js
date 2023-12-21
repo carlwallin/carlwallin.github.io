@@ -39,16 +39,16 @@ function setup() {
   brushSizeSlider = createButton("Brush Size Slider");
   brushSizeSlider.position(10, 35);
   brushSizeSlider.class("textknapp");
-  sizeSlider = createSlider(0.1, 200, 2, 0.1);
-  sizeSlider.position(110, 35);
+  sizeSlider = createSlider(0.1, 200, 10, 0.1);
+  sizeSlider.position(140, 35);
   sizeSlider.size(200);
   sizeSlider.class("slider");
 
   brushOpSlider = createButton("Brush Opacity Slider");
   brushOpSlider.position(10, 55);
   brushOpSlider.class("textknapp");
-  sizeOpSlider = createSlider(0, 255, 200, 0.1);
-  sizeOpSlider.position(110, 55);
+  sizeOpSlider = createSlider(0, 255, 100, 0.1);
+  sizeOpSlider.position(140, 55);
   sizeOpSlider.size(200);
   sizeOpSlider.class("slider");
 }
