@@ -6,53 +6,84 @@ let symmetrySlider, symSizeSlider;
 let brushSizeSlider, sizeSlider;
 let brushOpSlider, sizeOpSlider;
 let canvas;
+let isDrawingEnabled = true;
+
+//  ATT GÖRA:
+//  Knapp för på eller av osc.
+//  Knapp för osc på symmetry?
+//  Knapp för penseleffekt - börjar tunnt och blir bredare ju längre håller in?
+//  Preview på brusch vid muspekare
+//  Rita inte när trycker på knappar
+//  Smooth eller easing rörelse för mjukare tusch https://p5js.org/examples/input-easing.html
+//  Kompatibel på smarttelefon
 
 function setup() {
   canvas = createCanvas(windowWidth, windowHeight);
   canvas.position(0, 0);
   angleMode(DEGREES);
+  canvas.style('z-index', '-1');
+  canvas.touchStarted(touchStartedEvent);
+  canvas.touchMoved(touchMovedEvent);
+  canvas.touchEnded(touchEndedEvent);
 
   // Creating the save button for the file
-  saveButton = createButton("save");
-  saveButton.mousePressed(saveFile);
+  saveButton = createButton('save');
+  // saveButton.mousePressed(saveFile);
+  saveButton.mousePressed(() => {
+    isDrawingEnabled = false;
+    saveFile();
+  });
   saveButton.position(10, 10);
-  saveButton.class("tryckknapp");
+  saveButton.class('tryckknapp');
 
   // Creating the clear screen button
-  clearButton = createButton("clear");
-  clearButton.mousePressed(clearScreen);
+  clearButton = createButton('clear');
+  // clearButton.mousePressed(clearScreen);
+  clearButton.mousePressed(() => {
+    isDrawingEnabled = false;
+    clearScreen();
+  });
   clearButton.position(60, 10);
-  clearButton.class("tryckknapp");
+  clearButton.class('tryckknapp');
 
   // Setting up the slider for symmetry
-  symmetrySlider = createButton("Symmetry Slider");
+  symmetrySlider = createButton('Symmetry Slider');
   symmetrySlider.position(10, 60);
-  symmetrySlider.class("textknapp");
+  symmetrySlider.class('textknapp');
   symSizeSlider = createSlider(4, 32, 12, 1); // Startvärde 12
   symSizeSlider.position(140, 60);
   symSizeSlider.size(200);
-  symSizeSlider.class("slider");
+  symSizeSlider.class('slider');
+  symSizeSlider.mouseOver(() => {
+    isDrawingEnabled = false;
+  });
 
   // Setting up the slider for the thickness of the brush
-  brushSizeSlider = createButton("Brush Size Slider");
+  brushSizeSlider = createButton('Brush Size Slider');
   brushSizeSlider.position(10, 90);
-  brushSizeSlider.class("textknapp");
+  brushSizeSlider.class('textknapp');
   sizeSlider = createSlider(0.1, 100, 10, 0.1);
   sizeSlider.position(140, 90);
   sizeSlider.size(200);
-  sizeSlider.class("slider");
+  sizeSlider.class('slider');
+  sizeSlider.mouseOver(() => {
+    isDrawingEnabled = false;
+  });
 
-  brushOpSlider = createButton("Brush Opacity Slider");
+  brushOpSlider = createButton('Brush Opacity Slider');
   brushOpSlider.position(10, 120);
-  brushOpSlider.class("textknapp");
+  brushOpSlider.class('textknapp');
   sizeOpSlider = createSlider(1, 255, 100, 0.1);
   sizeOpSlider.position(140, 120);
   sizeOpSlider.size(200);
-  sizeOpSlider.class("slider");
+  sizeOpSlider.class('slider');
+  sizeOpSlider.mouseOver(() => {
+    isDrawingEnabled = false;
+  });
 }
 
 function saveFile() {
-  save("design.jpg");
+  save('design.jpg');
 }
 
 function clearScreen() {
@@ -77,7 +108,7 @@ function draw() {
     let pmx = pmouseX - width / 2;
     let pmy = pmouseY - height / 2;
 
-    if (mouseIsPressed) {
+    if (mouseIsPressed && isDrawingEnabled) {
       for (let i = 0; i < symmetry; i++) {
         rotate(angle);
         let sw = sizeSlider.value();
@@ -92,5 +123,31 @@ function draw() {
       }
     }
   }
-  angleB += 1;
+  angleB += 2;
+}
+
+function touchStartedEvent(event) {
+  if (!isDrawingEnabled) {
+    event.preventDefault(); // Förhindra skrollning om vi inte ritar
+  }
+  // ... eventuell logik för när touchstart-händelsen inträffar ...
+}
+
+function touchMovedEvent(event) {
+  if (isDrawingEnabled) {
+    // ... din ritlogik ...
+  } else {
+    event.preventDefault(); // Förhindra skrollning om vi inte ritar
+  }
+}
+
+function touchEndedEvent(event) {
+  if (!isDrawingEnabled) {
+    event.preventDefault(); // Förhindra skrollning om vi inte ritar
+  }
+  // ... eventuell logik för när touchend-händelsen inträffar ...
+}
+
+function mouseReleased() {
+  isDrawingEnabled = true;
 }
