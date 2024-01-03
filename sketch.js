@@ -7,6 +7,11 @@ let brushSizeSlider, sizeSlider;
 let brushOpSlider, sizeOpSlider;
 let canvas;
 let isDrawingEnabled = true;
+let ex = 1;
+let ey = 1;
+let epx = 1;
+let epy = 1;
+let easing = 0.08;
 
 //  ATT GÖRA:
 //  Knapp för på eller av osc.
@@ -97,8 +102,8 @@ function draw() {
   symmetry = symSizeSlider.value();
   angle = 360 / symmetry;
 
-  let sx = map(sin(angleB), -1, 1, 0.1, 80);
-  let ox = map(sin(angleB), -1, 1, 150, 1);
+  let sx = map(sin(angleB), -1, 1, 0.1, 70);
+  let ox = map(sin(angleB), -1, 1, 100, 0);
   sizeSlider.value(sx);
   sizeOpSlider.value(ox);
 
@@ -108,6 +113,20 @@ function draw() {
     let pmx = pmouseX - width / 2;
     let pmy = pmouseY - height / 2;
 
+    let targetX = mx;
+    let dx = targetX - ex;
+    ex += dx * easing;
+    let targetPX = pmx;
+    let dPx = targetPX - epx;
+    epx += dPx * easing;
+
+    let targetY = my;
+    let dy = targetY - ey;
+    ey += dy * easing;
+    let targetPY = pmy;
+    let dPy = targetPY - epy;
+    epy += dPy * easing;
+
     if (mouseIsPressed && isDrawingEnabled) {
       for (let i = 0; i < symmetry; i++) {
         rotate(angle);
@@ -115,10 +134,12 @@ function draw() {
         let ow = sizeOpSlider.value();
         strokeWeight(sw);
         stroke(0, ow);
-        line(mx, my, pmx, pmy);
+        // line(mx, my, pmx, pmy);
+        line(ex, ey, epx, epy);
         push();
         scale(1, -1);
-        line(mx, my, pmx, pmy);
+        // line(mx, my, pmx, pmy);
+        line(ex, ey, epx, epy);
         pop();
       }
     }
